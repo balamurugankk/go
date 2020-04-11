@@ -33,8 +33,6 @@ jobs:
     - name: understand
       run: ls -latr ; pwd
 
-    - name: Build
-      run: go build -v .
-
     # Use this yaml in your workflow file for each job
+    - name: Build
       runs-on: self-hosted
