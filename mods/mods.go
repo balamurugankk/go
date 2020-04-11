@@ -1,5 +1,5 @@
 package mods
 
-func codeset() string {
+func Codeset() string {
 	return "Success"
 }
