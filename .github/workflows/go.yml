@@ -10,7 +10,7 @@ jobs:
 
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
 
     - name: Set up Go 1.13
@@ -33,6 +33,7 @@ jobs:
     - name: understand
       run: ls -latr ; pwd
 
-    # Use this yaml in your workflow file for each job
     - name: Build
-      runs-on: self-hosted
+      run: go build -v .
+
+    # Use this yaml in your workflow file for each job
