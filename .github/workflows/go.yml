@@ -10,7 +10,7 @@ jobs:
 
   build:
     name: Build
-    runs-on: self-hosted
+    runs-on: bmvss-NUC8i3BEH
     steps:
 
     - name: Set up Go 1.13
