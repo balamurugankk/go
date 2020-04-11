@@ -29,9 +29,9 @@ jobs:
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             dep ensure
         fi
-        
+
     - name: understand
-      run: ls -latr ; pwd 
+      run: ls -latr ; pwd
 
     - name: Build
-      run: go build -v code_set1/*.go
+      run: go build -v code_set1/sample1.go
