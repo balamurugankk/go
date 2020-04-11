@@ -34,4 +34,4 @@ jobs:
       run: ls -latr ; pwd
 
     - name: Build
-      run: go build -v code_set1/sample1.go
+      run: go build -v .
