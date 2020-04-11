@@ -1,7 +1,7 @@
 package main
 
 import "fmt"
-import "github.com/balamurugankk/go/mods"
+import "github.com/balamurugankk/go/code_set1/mods"
 
 func main() {
 
