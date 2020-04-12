@@ -73,10 +73,11 @@ func codeset1() {
 
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 
-	var result map[string]interface{}
+	var servers Servers
 
-	json.Unmarshal(byteValue, &result)
+	json.Unmarshal(byteValue, &servers)
 
-	fmt.Println(result["servers"])
-
+	for i := 0; i < len(servers.Servers); i++ {
+		fmt.Println("User Type: " + servers.Servers[i].Name)
+	}
 }
