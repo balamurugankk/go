@@ -16,33 +16,33 @@ type Servers struct {
 }
 
 type Server struct {
-	Name    string   `json:"name"`
-	Regions []Region `json:"regions"`
+	Name    string  `json:"name"`
+	Regions Regions `json:"regions"`
 }
 
-type Region struct {
-	Eastred      []ER `json:"east-red"`
-	Eastblack    []EB `json:"east-black"`
-	Centralred   []CR `json:"central-red"`
-	Centralblack []CB `json:"central-black"`
+type Regions struct {
+	Eastred      Eastred      `json:"east-red"`
+	Eastblack    Eastblack    `json:"east-black"`
+	Centralred   Centralred   `json:"central-red"`
+	Centralblack Centralblack `json:"central-black"`
 }
 
-type ER struct {
+type Eastred struct {
 	Nos  string `json:"nos"`
 	List string `json:"list"`
 }
 
-type EB struct {
+type Eastblack struct {
 	Nos  string `json:"nos"`
 	List string `json:"list"`
 }
 
-type CR struct {
+type Centralred struct {
 	Nos  string `json:"nos"`
 	List string `json:"list"`
 }
 
-type CB struct {
+type Centralblack struct {
 	Nos  string `json:"nos"`
 	List string `json:"list"`
 }
@@ -79,5 +79,6 @@ func codeset1() {
 
 	for i := 0; i < len(servers.Servers); i++ {
 		fmt.Println("Application Type: " + servers.Servers[i].Name)
+		fmt.Print("Region infos: " + servers.Servers[i].Regions.Eastred.Nos)
 	}
 }
