@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
-	"net/http"
 	"os"
 
 	"github.com/balamurugankk/go/models"
@@ -16,15 +14,15 @@ type Servers struct {
 }
 
 type Server struct {
-	Name    string  `json:"name"`
-	Regions Regions `json:"regions"`
+	Name   string  `json:"name"`
+	Region Regions `json:"regions"`
 }
 
 type Regions struct {
-	Eastred      Eastred      `json:"east-red"`
-	Eastblack    Eastblack    `json:"east-black"`
-	Centralred   Centralred   `json:"central-red"`
-	Centralblack Centralblack `json:"central-black"`
+	Eastred      Eastred      `json:"eastred"`
+	Eastblack    Eastblack    `json:"eastblack"`
+	Centralred   Centralred   `json:"centralred"`
+	Centralblack Centralblack `json:"centralblack"`
 }
 
 type Eastred struct {
@@ -52,14 +50,14 @@ func main() {
 	fmt.Println("This my github test code")
 	fmt.Println(models.Codeset2())
 	codeset1()
-	http.HandleFunc("/", codeset3)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	//http.HandleFunc("/", codeset3)
+	//log.Fatal(http.ListenAndServe(":8080", nil))
 
 }
 
-func codeset3(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
-}
+//func codeset3(w http.ResponseWriter, r *http.Request) {
+//	fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+//}
 
 func codeset1() {
 	jsonFile, err := os.Open("server.json")
@@ -79,6 +77,8 @@ func codeset1() {
 
 	for i := 0; i < len(servers.Servers); i++ {
 		fmt.Println("Application Type: " + servers.Servers[i].Name)
-		fmt.Print("Region infos: " + servers.Servers[i].Regions.Eastred.Nos)
+		fmt.Println(servers.Servers[i].Region.Eastred.Nos)
+		fmt.Println(servers.Servers[i].Region.Eastred.List)
 	}
+
 }
