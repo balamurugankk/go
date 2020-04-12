@@ -1,8 +1,22 @@
 {
-  "server_1" : {
-    "central-black": { "nos": 20, "list": "127.0.0.1,127.0.0.2,127.0.0.3" },
-    "central-red": { "nos": 20 , "list": "128.0.0.1,128.0.0.2,128.0.0.3" },
-    "east-black": { "nos" : 20, "list": "126.0.0.1,126.0.0.2,126.0.0.3" },
-    "east-red": { "nos": 20 , "list": "129.0.0.1,129.0.0.2,129.0.0.3" }
-  }
+  "servers": [
+    {
+      "name": "api1",
+      "region": {
+        "east-red": { "nos":"1","list":"127.0.0.1"} ,
+        "east-black": { "nos":"2","list":"128.0.0.1"},
+        "central-red": { "nos":"3","list":"129.0.0.1"} ,
+        "central-black": { "nos":"4","list":"130.0.0.1"}
+      }
+    },
+    {
+      "name": "api2",
+      "region": {
+        "east-red": { "nos":"1","list":"127.0.0.1"} ,
+        "east-black": { "nos":"2","list":"128.0.0.1"},
+        "central-red": { "nos":"3","list":"129.0.0.1"} ,
+        "central-black": { "nos":"4","list":"130.0.0.1"}
+      }
+    }
+  ]
 }

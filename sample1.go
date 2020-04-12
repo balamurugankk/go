@@ -1,13 +1,51 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/balamurugankk/go/models"
 )
+
+type Servers struct {
+	Servers []Server `json:"servers"`
+}
+
+type Server struct {
+	Name    string   `json:"name"`
+	Regions []Region `json:"regions"`
+}
+
+type Region struct {
+	Eastred      []ER `json:"east-red"`
+	Eastblack    []EB `json:"east-black"`
+	Centralred   []CR `json:"central-red"`
+	Centralblack []CB `json:"central-black"`
+}
+
+type ER struct {
+	Nos  string `json:"nos"`
+	List string `json:"list"`
+}
+
+type EB struct {
+	Nos  string `json:"nos"`
+	List string `json:"list"`
+}
+
+type CR struct {
+	Nos  string `json:"nos"`
+	List string `json:"list"`
+}
+
+type CB struct {
+	Nos  string `json:"nos"`
+	List string `json:"list"`
+}
 
 func main() {
 
@@ -32,4 +70,11 @@ func codeset1() {
 	fmt.Println("Successfully Opened users.json")
 
 	defer jsonFile.Close()
+
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+
+	var servers Servers
+
+	json.Unmarshal(byteValue, &servers)
+
 }
