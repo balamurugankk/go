@@ -7,7 +7,7 @@ func main() {
 
 	fmt.Println("This my github test code")
 	fmt.Println(models.Codeset2())
-	fmt.Println(codeset1())
+	codeset1()
 }
 
 func codeset1() {
