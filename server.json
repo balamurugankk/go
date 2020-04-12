@@ -12,10 +12,10 @@
     {
       "name": "api2",
       "regions": {
-        "eastred": { "nos":"1","list":"127.0.0.1"} ,
-        "eastblack": { "nos":"2","list":"128.0.0.1"},
-        "centralred": { "nos":"3","list":"129.0.0.1"} ,
-        "centralblack": { "nos":"4","list":"130.0.0.1"}
+        "eastred": { "nos":"1","list":"140.0.0.1"} ,
+        "eastblack": { "nos":"2","list":"141.0.0.1"},
+        "centralred": { "nos":"3","list":"142.0.0.1"} ,
+        "centralblack": { "nos":"4","list":"143.0.0.1"}
       }
     }
   ]
