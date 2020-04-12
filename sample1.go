@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/balamurugankk/go/models"
 )
@@ -23,5 +24,12 @@ func codeset3(w http.ResponseWriter, r *http.Request) {
 }
 
 func codeset1() {
-	fmt.Println("Haiiiiii")
+	jsonFile, err := os.Open("server.json")
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("Successfully Opened users.json")
+
+	defer jsonFile.Close()
 }
