@@ -1,12 +1,12 @@
 package main
 
 import "fmt"
-import "github.com/balamurugankk/go/mods"
+import "github.com/balamurugankk/go/models"
 
 func main() {
 
 	fmt.Println("This my github test code")
-	fmt.Println(mods.Codeset())
+	fmt.Println(models.Codeset2())
 }
 
 func codeset1() {
