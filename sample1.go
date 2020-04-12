@@ -13,7 +13,7 @@ func main() {
 	fmt.Println("This my github test code")
 	fmt.Println(models.Codeset2())
 	codeset1()
-	http.HandleFunc("/", codeset3())
+	http.HandleFunc("/", codeset3)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 
 }
