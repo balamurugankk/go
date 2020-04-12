@@ -73,8 +73,10 @@ func codeset1() {
 
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 
-	var servers Servers
+	var result map[string]interface{}
 
-	json.Unmarshal(byteValue, &servers)
+	json.Unmarshal(byteValue, &result)
+
+	fmt.Println(result["servers"])
 
 }
