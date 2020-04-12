@@ -2,7 +2,7 @@
   "servers": [
     {
       "name": "api1",
-      "region": {
+      "regions": {
         "eastred": { "nos":"1","list":"127.0.0.1"} ,
         "eastblack": { "nos":"2","list":"128.0.0.1"},
         "centralred": { "nos":"3","list":"129.0.0.1"} ,
@@ -11,7 +11,7 @@
     },
     {
       "name": "api2",
-      "region": {
+      "regions": {
         "eastred": { "nos":"1","list":"127.0.0.1"} ,
         "eastblack": { "nos":"2","list":"128.0.0.1"},
         "centralred": { "nos":"3","list":"129.0.0.1"} ,
