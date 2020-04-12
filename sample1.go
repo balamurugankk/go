@@ -78,6 +78,6 @@ func codeset1() {
 	json.Unmarshal(byteValue, &servers)
 
 	for i := 0; i < len(servers.Servers); i++ {
-		fmt.Println("User Type: " + servers.Servers[i].Name)
+		fmt.Println("Application Type: " + servers.Servers[i].Name)
 	}
 }
