@@ -79,6 +79,8 @@ func codeset1() {
 		fmt.Println("Application Type: " + servers.Servers[i].Name)
 		fmt.Println(servers.Servers[i].Region.Eastred.Nos)
 		fmt.Println(servers.Servers[i].Region.Eastred.List)
+		fmt.Println(servers.Servers[i].Region.Centralred.Nos)
+		fmt.Println(servers.Servers[i].Region.Centralred.List)
 	}
 
 }
