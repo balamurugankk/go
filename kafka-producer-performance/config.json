@@ -1,0 +1,29 @@
+{
+    "OutKafkaConfig": {
+        "enabled": true,
+	    "brokers": "localhost:9092",
+	    "securityProtocol": "PLAINTEXT",
+	    "topic": "test",
+	    "messageLoad": 100000,
+	    "tlsRootCACerts": "",
+	    "tlsClientCert": "",
+	    "tlsClientKey": "",
+	    "partition": -1,
+	    "throughput": 0,
+	    "maxOpenRequests": 5,
+	    "maxMessageBytes": 100000,
+	    "requiredAcks": 1,
+	    "timeout": 18,
+	    "partitioner": "roundrobin",
+	    "compression": "none",
+	    "flushFrequency":0,
+	    "flushBytes": 0,
+	    "flushMessages": 0,
+	    "flushMaxMessages": 0,
+	    "clientID": "test_abc",
+	    "channelBufferSize": 256,
+	    "routines": 1,
+	    "version": "0.8.2.0",
+	    "verbose": false
+    }
+}
