@@ -1,0 +1,5 @@
+{
+    "groupId": "test-group",
+    "brokerList": "localhost:9092",
+    "topic": "test-topic"
+}

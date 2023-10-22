@@ -1,0 +1,154 @@
+package main
+
+import (
+	"encoding/json"
+	"errors"
+	"fmt"
+	"log"
+	"os"
+	"strings"
+	"time"
+
+	"github.com/IBM/sarama"
+)
+
+var kafkaClient sarama.Client
+var pom sarama.PartitionOffsetManager
+
+// var msgpack codec.MsgpackHandle
+// var configFile string
+var endOffsetNew, lag [40]int64
+var err error
+var firstTime bool
+
+type Configuration struct {
+	GroupID    string `json:"groupId"`
+	BrokerList string `json:"brokerList"`
+	Topic      string `json:"topic"`
+}
+
+func main() {
+	if len(os.Args) != 2 {
+		log.Fatalf("usage %v <config file>", os.Args[0])
+	}
+
+	configfile := os.Args[1]
+
+	configInstance := ReadConfiguration(configfile)
+	if err != nil {
+		log.Fatalf("error reading configuration %v", err)
+	}
+
+	var controlChannel = make(chan []int64)
+
+	if configInstance.BrokerList == "" {
+		exit(errors.New("brokers are not defined properly"))
+	}
+
+	brokers := strings.Split(configInstance.BrokerList, ",")
+
+	kafkaClient, err = sarama.NewClient(brokers, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	consumer, err := sarama.NewConsumerFromClient(kafkaClient)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer consumer.Close()
+
+	partitions, err := kafkaClient.Partitions(configInstance.Topic)
+	if err != nil {
+		exit(err)
+	}
+	for {
+
+		if firstTime {
+			fmt.Println("Initial lag")
+			offsetManager, err := sarama.NewOffsetManagerFromClient(configInstance.GroupID, kafkaClient)
+			if err != nil {
+				exit(err)
+			}
+
+			for _, partition := range partitions {
+				go processPartition(configInstance.Topic, partition, controlChannel, offsetManager)
+			}
+
+			for _, partition := range partitions {
+				response := <-controlChannel
+				lag[partition] = response[0]
+			}
+
+			var totalLag int64 = 0
+			for _, partition := range partitions {
+				totalLag = totalLag + lag[partition]
+			}
+			time.Sleep(5 * time.Second)
+			fmt.Println("totalLag: ", totalLag)
+		} else {
+			offsetManager, err := sarama.NewOffsetManagerFromClient(configInstance.GroupID, kafkaClient)
+			if err != nil {
+				exit(err)
+			}
+
+			for _, partition := range partitions {
+				go processPartition(configInstance.Topic, partition, controlChannel, offsetManager)
+			}
+
+			for _, partition := range partitions {
+				response := <-controlChannel
+				lag[partition] = response[0]
+			}
+
+			var totalLag int64 = 0
+			for _, partition := range partitions {
+				totalLag = totalLag + lag[partition]
+			}
+			time.Sleep(5 * time.Second)
+			fmt.Println("totalLag: ", totalLag)
+
+		}
+	}
+
+}
+
+func ReadConfiguration(configfile string) *Configuration {
+
+	log.Printf("reading config file %q", configfile)
+	source, err := os.ReadFile(configfile)
+	if err != nil {
+		return nil
+	}
+
+	var config Configuration
+	if err = json.Unmarshal(source, &config); err != nil {
+		return nil
+	}
+	fmt.Println(config.BrokerList)
+	return &config
+}
+
+func processPartition(topic string, partition int32, controlChannel chan []int64, offsetManager sarama.OffsetManager) {
+	pom, err := offsetManager.ManagePartition(topic, int32(partition))
+	if err != nil {
+		println("ManagePartion:", err)
+	}
+	consumerOffset, _ := pom.NextOffset()
+
+	offset, err := kafkaClient.GetOffset(topic, int32(partition), sarama.OffsetNewest)
+	if err != nil {
+		exit(err)
+	}
+
+	var response = make([]int64, 0)
+
+	lag := offset - consumerOffset
+	endOffsetNew[partition] = offset
+	response = append(response, lag, int64(partition), offset)
+	controlChannel <- response
+}
+func exit(err error) {
+	fmt.Println(err)
+	os.Exit(1)
+}
